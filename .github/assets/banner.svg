@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#121316" />
+      <stop offset="100%" stop-color="#050505" />
+    </radialGradient>
+
+    <!-- Outer Metallic Rim Gradient -->
+    <linearGradient id="metalRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f0f0" />
+      <stop offset="20%" stop-color="#7a7d84" />
+      <stop offset="50%" stop-color="#ffffff" />
+      <stop offset="80%" stop-color="#4a4c52" />
+      <stop offset="100%" stop-color="#d0d0d0" />
+    </linearGradient>
+
+    <!-- Radial Brushed Metallic Disc Gradient -->
+    <radialGradient id="brushedMetal" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a8abb0" />
+      <stop offset="25%" stop-color="#606469" />
+      <stop offset="50%" stop-color="#32353a" />
+      <stop offset="75%" stop-color="#7a7e85" />
+      <stop offset="95%" stop-color="#242629" />
+      <stop offset="100%" stop-color="#18191c" />
+    </radialGradient>
+
+    <!-- Deep Metallic Engraving Filter -->
+    <filter id="deepEngrave" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Drop shadow cast inside the groove -->
+      <feOffset dx="2" dy="3" in="SourceAlpha" result="offset" />
+      <feGaussianBlur stdDeviation="2" in="offset" result="blur" />
+      <feFlood flood-color="#000000" flood-opacity="0.95" result="darkShadow" />
+      <feComposite operator="in" in="darkShadow" in2="blur" result="shadow" />
+
+      <!-- Top highlight rim for light catch on metallic edges -->
+      <feOffset dx="-1.5" dy="-1.5" in="SourceAlpha" result="offsetHi" />
+      <feGaussianBlur stdDeviation="1" in="offsetHi" result="blurHi" />
+      <feFlood flood-color="#ffffff" flood-opacity="0.75" result="lightColor" />
+      <feComposite operator="in" in="lightColor" in2="blurHi" result="highlight" />
+
+      <!-- Combine everything over the base text graphic -->
+      <feMerge>
+        <feMergeNode in="highlight" />
+        <feMergeNode in="shadow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Inner Shadow for Circular Groove -->
+    <filter id="innerShadow">
+      <feComponentTransfer in="SourceAlpha">
+        <feFuncA type="linear" slope="0.7"/>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feOffset dx="0" dy="2"/>
+      <feComposite operator="out" in2="SourceAlpha"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.8 0"/>
+      <feBlend mode="multiply" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Canvas Background -->
+  <rect width="1200" height="400" fill="url(#bgGrad)" />
+
+  <!-- Outer Metallic Ring -->
+  <circle cx="600" cy="200" r="180" fill="url(#metalRim)" />
+  <circle cx="600" cy="200" r="174" fill="#0a0b0c" />
+
+  <!-- Main Metallic Disc -->
+  <circle cx="600" cy="200" r="170" fill="url(#brushedMetal)" />
+
+  <!-- Concentric Machined Metal Grooves -->
+  <circle cx="600" cy="200" r="152" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.5" />
+  <circle cx="600" cy="200" r="130" fill="none" stroke="#000000" stroke-opacity="0.35" stroke-width="2" />
+  <circle cx="600" cy="200" r="105" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+  <circle cx="600" cy="200" r="78" fill="none" stroke="#000000" stroke-opacity="0.4" stroke-width="1.5" />
+  <circle cx="600" cy="200" r="50" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1" />
+
+  <!-- Engraved Text "ORDERSPECTOR" -->
+  <text 
+    x="600" 
+    y="218" 
+    font-family="Impact, 'Arial Black', -apple-system, sans-serif" 
+    font-size="52" 
+    font-weight="900" 
+    letter-spacing="5"
+    text-anchor="middle" 
+    fill="#1d1f22" 
+    stroke="#101113"
+    stroke-width="1"
+    filter="url(#deepEngrave)">
+    ORDERSPECTOR
+  </text>
+</svg>
