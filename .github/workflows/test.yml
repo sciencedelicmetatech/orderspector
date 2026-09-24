@@ -1,0 +1,80 @@
+name: test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  reference-suite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install LLVM and clang
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq llvm clang
+          clang --version
+          opt --version
+
+      - name: Locate reference implementation
+        id: locate
+        run: |
+          if [ -f code/orderspector_reference.py ]; then
+            echo "path=code/orderspector_reference.py" >> $GITHUB_OUTPUT
+          elif [ -f code/reference.py ]; then
+            echo "path=code/reference.py" >> $GITHUB_OUTPUT
+          else
+            echo "::error::reference implementation not found in code/"
+            exit 1
+          fi
+
+      - name: Run reference suite
+        run: |
+          cd code
+          python3 "$(basename ${{ steps.locate.outputs.path }})" | tee /tmp/out.txt
+        timeout-minutes: 5
+
+      - name: Verify expected results
+        run: |
+          set -e
+          OUT=/tmp/out.txt
+          check() {
+            if grep -q "$1" "$OUT"; then
+              echo "PASS  $2"
+            else
+              echo "FAIL  $2  (missing: $1)"
+              echo "----- last 40 lines of output -----"
+              tail -40 "$OUT"
+              exit 1
+            fi
+          }
+
+          check "PART 1"           "Part 1 section present"
+          check "PART 2"           "Part 2 section present"
+          check "0.0%"             "Part 2: L=4 zero incomparability"
+          check "88.6%"            "Part 2: L=12 saturation"
+          check "PART 3"           "Part 3 section present"
+          check "15/16 = 94%"      "Part 3: exact precision 94%"
+          check "15/493 = 3%"      "Part 3: exact recall 3%"
+          check "PART 4"           "Part 4 section present"
+          check "3/3 MATCH"        "Part 4: 3 of 3 pass pairs match"
+
+      - name: Upload full output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reference-output
+          path: /tmp/out.txt
+          retention-days: 14
