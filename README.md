@@ -82,4 +82,18 @@ Working papers. Reference code. Comments welcome via issues.
 
 ## License
 
-Code: MIT. Papers: CC-BY-4.0. See `LICENSE`.
+**Code:** GNU Affero General Public License v3.0 (AGPL-3.0). See `LICENSE`.
+
+**Papers:** Creative Commons Attribution-ShareAlike 4.0 (CC-BY-SA-4.0).
+See `papers/LICENSE`.
+
+The AGPL applies to the reference implementation and to any derivative works,
+including network services that expose modified versions of the code. The
+papers are share-alike under CC-BY-SA-4.0, which mirrors the copyleft spirit
+of the AGPL for written work.
+
+For attribution purposes, cite the working paper(s) and the repository:
+
+    Raell, E. (2026). Orderspector: A Reasoning Layer over Rewriting
+    Systems. Working Papers I-III. Sciencedelic Metatech.
+    https://github.com/sciencedelicmetatech/orderspector
