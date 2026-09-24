@@ -1,0 +1,4 @@
+# No dependencies for Parts 1-3 and 9c.
+# Part 4 requires clang and opt (LLVM 14+) in PATH.
+# Install via: apt-get install llvm clang   (Debian/Ubuntu)
+#              brew install llvm            (macOS)
