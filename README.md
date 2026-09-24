@@ -1,5 +1,6 @@
 ![Orderspector Banner](.github/assets/banner.svg)
- Orderspector
+
+# Orderspector
 
 A reasoning layer over rewriting systems. Predicts when two rewrite relations
 produce order-dependent results, using a certificate tier and a proposer tier
