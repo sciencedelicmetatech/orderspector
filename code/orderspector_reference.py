@@ -155,7 +155,6 @@ def _closure_bitmask(w0, step_fn, idx, max_steps=15):
     return mask
 
 def _popcount(x):
-    # Compatibility across Python versions
     try:
         return x.bit_count()
     except AttributeError:
@@ -952,11 +951,11 @@ def part9c_dual_engine(records):
         verdict = "The fuzzy tier is NOT DISCRIMINATIVE."
     print("  VERDICT: " + verdict)
     print("           Precision lift over base rate: %.2fx at threshold %.1f."
-          % (lift, THR ())
+          % (lift, THR))
     print()
 
-    print("  RecallHMspection analogy (corrected):")
-    printAC("    ExactMemory precision:      ~100% certificate)")
+    print("  Recallspection analogy (corrected):")
+    print("    ExactMemory precision:      ~100% (HMAC certificate)")
     print("    SWSTM key@3 recall:         ~95% (MiniLM card search)")
     print("    Framework exact precision:  %.1f%% (redex certificate)" % ex_prec)
     print("    Framework fuzzy precision:  %.1f%% (combinatorial features, %.2fx base)"
